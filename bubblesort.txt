@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+long long int swaps = 0;
+void swap(int *xp, int *yp)
+{
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+    swaps++;
+}
+
+void bubbleSort(int arr[], int n)
+{
+    int i, j;
+    for (i = 0; i < n-1; i++)
+        for (j = 0; j < n-i-1; j++)
+            if (arr[j] > arr[j+1])
+                swap(&arr[j], &arr[j+1]);
+}
+
+int main()
+{
+    FILE *fp;
+    int arr1[100000], size = 0, j = 0;
+    fp = fopen("E:/input4.txt","r");
+
+    do
+    {
+        fscanf(fp, "%d", &arr1[j++]);
+        size++;
+    }
+    while(getc(fp) != EOF);
+    fclose (fp);
+
+    clock_t start=clock();
+    bubbleSort(arr1, size);
+    clock_t end=clock();
+
+    double total = (double)(end-start)/CLOCKS_PER_SEC;
+
+    printf("number of elements: %d\n", size);
+    printf("time taken :  %.5f seconds\n",total);
+    printf("number of swaps: %ll", swaps);
+
+    fp = fopen("E:/result.txt","w");
+    int k = 0;
+    while(k < size)
+    {
+        fprintf(fp, "%d ",arr1[k++]);
+    }
+    fclose(fp);
+    return 0;
+}

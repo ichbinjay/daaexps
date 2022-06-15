@@ -1,0 +1,69 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+void swap(int* a, int* b)
+{
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
+int partition (int arr[], int low, int high)
+{
+    int pivot = arr[high];
+    int i = (low - 1);
+
+    for (int j = low; j <= high - 1; j++)
+    {
+        if (arr[j] < pivot)
+        {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+    swap(&arr[i + 1], &arr[high]);
+    return (i + 1);
+}
+
+void quickSort(int arr[], int low, int high)
+{
+    if (low < high)
+    {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+int main()
+{
+    FILE *fp;
+    int arr1[100000], size = 0, j = 0;
+    fp = fopen("E:/input4.txt","r");
+
+    do
+    {
+        fscanf(fp, "%d", &arr1[j++]);
+        size++;
+    }
+    while(getc(fp) != EOF);
+    fclose (fp);
+
+    clock_t start=clock();
+    quickSort(arr1,0, size-1);
+    clock_t end=clock();
+
+    double total = (double)(end-start)/CLOCKS_PER_SEC;
+
+    printf("number of elements: %d\n", size);
+    printf("time taken :  %.9f seconds\n",total);
+    //printf("number of divisions: %lld", divisions);
+
+    fp = fopen("E:/result.txt","w");
+    int k = 0;
+    while(k < size)
+    {
+        fprintf(fp, "%d ",arr1[k++]);
+    }
+    fclose(fp);
+    return 0;
+}

@@ -1,0 +1,19 @@
+jobData = {}
+n = int(input("Enter number of jobs: "))
+
+for i in range(n):
+    print("Job", i+1, ":")
+        profit = int(input("Enter job profit:"))
+            deadline = int(input("Enter job deadline:"))
+                jobData[i + 1] = [profit, deadline]
+slotCapacity = int(input("Enter number of slots:"))
+slots = [0] * slotCapacity
+jobData = dict(sorted(jobData.items(), key=lambda x: x[1][0], reverse=True))
+print(jobData)
+for i in jobData.keys():
+    index = jobData[i][1] - 1
+        if index < slotCapacity and slots[index] == 0:
+                slots[index] = "Job-"+str(i)
+                    if 0 not in slots:
+                            break
+print("Job Sequence: ", slots)

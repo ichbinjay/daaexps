@@ -1,0 +1,27 @@
+KnapsackData = {}
+n = int(input("Enter number of items: "))
+
+for i in range(n):
+    print("Item", i+1, ":")
+        profit = int(input("Enter item profit:"))
+            weight = int(input("Enter item weight:"))
+                KnapsackData[i + 1] = [profit, weight, profit/weight]
+                KnapsackData = dict(sorted(KnapsackData.items(), key=lambda x: x[1][2], reverse=True))
+                print(KnapsackData)
+knapsackCapacity = int(input("Enter Knapsack Capacity:"))
+
+profit = 0
+i = 0
+for i in KnapsackData.keys():
+    if KnapsackData[i][1] <= knapsackCapacity:
+            profit += KnapsackData[i][0]
+                    knapsackCapacity -= KnapsackData[i][1]
+                        else:
+                                profit += KnapsackData[i][0] * knapsackCapacity / KnapsackData[i][1]
+                                        knapsackCapacity = 0
+
+    if knapsackCapacity == 0:
+            break
+                else:
+                        i += 1
+print("Profit:", profit)

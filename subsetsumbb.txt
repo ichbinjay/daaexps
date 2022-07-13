@@ -1,0 +1,19 @@
+def subsetsum(pointer):
+    if sum(res) == target:
+        print(res)
+        return
+    elif pointer < len(l1):
+        res.append(l1[pointer])
+        pointer += 1
+        subsetsum(pointer)
+        res.pop()
+        subsetsum(pointer)
+    else:
+        return
+
+
+l1 = [5, 10, 12, 13, 15, 18]
+res = []
+target = 30
+pointer = 0
+subsetsum(pointer)

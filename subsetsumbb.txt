@@ -2,12 +2,14 @@ def subsetsum(pointer):
     if sum(res) == target:
         print(res)
         return
-    elif pointer < len(l1):
+    elif pointer < len(l1) and sum(res) < target:
         res.append(l1[pointer])
         pointer += 1
         subsetsum(pointer)
         res.pop()
         subsetsum(pointer)
+    elif sum(res) > target:
+        return
     else:
         return
 

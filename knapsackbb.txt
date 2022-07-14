@@ -1,0 +1,38 @@
+def knapsacks(pointer):
+    if sum(res) < limit and pointer < len(weight):
+        res.append(weight[pointer])
+        pointer += 1
+        knapsacks(pointer)
+        res.pop()
+        knapsacks(pointer)
+    elif sum(res) == limit:
+        if res not in sol:
+            sol.append(res[:])
+    if sum(res) > limit:
+        if res[:-1] not in sol:
+            sol.append(res[:-1])
+    else:
+        return
+
+
+def profitcalc():
+    profits = {}
+    for i in sol:
+        currsum = 0
+        for j in i:
+            currsum += profit[weight.index(j)]
+        profits[currsum] = i
+
+    x = max(profits)
+    print("max profit: ", x, "\nweights considered: ", profits[x])
+    return
+
+
+weight = [2, 3.14, 1.98, 5, 3]
+profit = [40, 50, 100, 95, 30]
+res = []
+sol = []
+limit = 10
+ptr = 0
+knapsacks(ptr)
+profitcalc()
